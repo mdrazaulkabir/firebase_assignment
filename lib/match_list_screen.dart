@@ -25,13 +25,23 @@ class _MatchListScreenState extends State<MatchListScreen> {
         stream: db.collection('football').snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot){
           if(snapshot.connectionState==ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
 
           }
           if(snapshot.hasError){
-
+            return Center( child: Text("Error${snapshot.hasError}"),);
           }
           if(snapshot.hasData){
-
+            _listLiveScore.clear();
+            for(QueryDocumentSnapshot<Map<String,dynamic>> doc in snapshot.data!.docs){
+              LiveScore liveScore = LiveScore(id: doc.id,
+                  team1: doc.get("team1"),
+                  team2: doc.get('team2'),
+                  team1_score: doc.get("team1_score"),
+                  team2_score: doc.get('team2_score'),
+                  time: doc.get('time'));
+              _listLiveScore.add(liveScore);
+            }
           }
           {
             return ListView.builder(
