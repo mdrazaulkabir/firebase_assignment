@@ -10,6 +10,7 @@ class MatchDetailScreen extends StatelessWidget {
       backgroundColor: Colors.black12,
       appBar: AppBar(
         title: Text("${liveScore.id}",style: TextStyle(fontSize: 24,fontWeight: FontWeight.bold,color: Colors.white),),
+        backgroundColor: Colors.greenAccent,
       ),
       body: Center(
         child: Column(
